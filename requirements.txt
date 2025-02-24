@@ -1,0 +1,7 @@
+roboflow
+colorama
+torch
+torchvision
+numpy
+matplotlib
+pillow
