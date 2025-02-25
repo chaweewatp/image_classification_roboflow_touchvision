@@ -1,7 +1,3 @@
-import os
-print('os: %s' % os.__version__)
-
-
 import roboflow
 print('roboflow: %s' % roboflow.__version__)
 
@@ -19,3 +15,6 @@ print('matplotlib: %s' % matplotlib.__version__)
 
 import colorama
 print('colorama: %s' % colorama.__version__)
+
+import PIL
+print('pillow: %s' % PIL.__version__)
