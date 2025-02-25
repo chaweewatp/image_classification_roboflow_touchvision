@@ -16,10 +16,14 @@ tfms = transforms.Compose([
       ])
 
 # โหลดโมเดลที่ถูกฝึกไว้แล้ว
-PATH_model = 'model-epoch4.pt' 
+PATH_model = 'model-epoch5.pt' 
 weights = torch.load(PATH_model)
 class_names = ['Cat', 'bird', 'dog']  # รายการคลาสที่โมเดลต้องจำแนก
 model_test = torchvision.models.efficientnet_b2(pretrained=False, num_classes=len(class_names))
+
+# model_test.classifier[1] = nn.Linear(in_features=1408, out_features=256, bias=True)
+# model_test.classifier.append(nn.Dropout(0.3,inplace=True))
+# model_test.classifier.append(nn.Linear(in_features=256, out_features=9, bias=True))
 
 # กำหนดอุปกรณ์ที่ใช้ในการประมวลผล (ใช้ GPU ถ้ามี)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
