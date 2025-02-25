@@ -16,9 +16,9 @@ tfms = transforms.Compose([
       ])
 
 # โหลดโมเดลที่ถูกฝึกไว้แล้ว
-PATH_model = 'model-epoch14.pt' <<<<<<<
+PATH_model = 'model-epoch4.pt' 
 weights = torch.load(PATH_model)
-class_names = ['abnormal', 'normal']  # รายการคลาสที่โมเดลต้องจำแนก
+class_names = ['Cat', 'bird', 'dog']  # รายการคลาสที่โมเดลต้องจำแนก
 model_test = torchvision.models.efficientnet_b2(pretrained=False, num_classes=len(class_names))
 
 # กำหนดอุปกรณ์ที่ใช้ในการประมวลผล (ใช้ GPU ถ้ามี)
@@ -30,7 +30,7 @@ model_test.eval()
 model_test.to(device)
 
 # วนลูปอ่านไฟล์ภาพจากโฟลเดอร์ test และทำการทำนายผลลัพธ์
-for root, dirs, files in os.walk("./meter-1/test/", topdown=False):
+for root, dirs, files in os.walk("./Cats,-dogs-and-birds-3/test/", topdown=False):
    for name in files:
       print(os.path.join(root, name))  # แสดงชื่อไฟล์ภาพที่กำลังทดสอบ
       

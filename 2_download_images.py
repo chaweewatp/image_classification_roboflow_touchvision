@@ -4,10 +4,11 @@
 """
 
 from roboflow import Roboflow
-rf = Roboflow(api_key="QfdxwHQSxLUWGhZYHRzG")  # ใช้ API Key ของ Roboflow เพื่อเข้าถึงข้อมูล
-project = rf.workspace("ai-peas1").project("meter-czrjc")  # กำหนดโปรเจกต์ที่ต้องการใช้งาน
-version = project.version(1)  # ใช้เวอร์ชันที่ 1 ของโปรเจกต์
-dataset = version.download("folder")  # ดาวน์โหลดชุดข้อมูลและบันทึกลงในโฟลเดอร์
+rf = Roboflow(api_key="Blp44Q5g6Mli0elMU5My")
+project = rf.workspace("image-classification-y0lsy").project("cats--dogs-and-birds")
+version = project.version(3)
+dataset = version.download("folder")
+
 
 from torchvision.datasets import ImageFolder
 import os
@@ -21,7 +22,7 @@ import matplotlib.pyplot as plt
 
 # โหลดชุดข้อมูลสำหรับการฝึก (Train) และการตรวจสอบความถูกต้อง (Validation)
 train_data = ImageFolder(
-    os.path.join(os.getcwd(), "./meter-1" , "train"),  # ระบุโฟลเดอร์ที่เก็บข้อมูลฝึก
+    os.path.join(os.getcwd(), "./Cats,-dogs-and-birds-3" , "train"),  # ระบุโฟลเดอร์ที่เก็บข้อมูลฝึก
     transform=Compose([
         Resize((288,288)),  # ปรับขนาดภาพเป็น 288x288 พิกเซล
         ToTensor()  # แปลงภาพเป็น Tensor เพื่อให้ใช้งานกับ PyTorch ได้
@@ -29,7 +30,7 @@ train_data = ImageFolder(
 )
 
 valid_data = ImageFolder(
-    os.path.join(os.getcwd(), "./meter-1" , "valid"),  # ระบุโฟลเดอร์ที่เก็บข้อมูล validation
+    os.path.join(os.getcwd(), "./Cats,-dogs-and-birds-3" , "valid"),  # ระบุโฟลเดอร์ที่เก็บข้อมูล validation
     transform=Compose([
         Resize((288,288)),  # ปรับขนาดภาพให้เท่ากันกับข้อมูลฝึก
         ToTensor()

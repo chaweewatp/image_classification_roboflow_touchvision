@@ -20,15 +20,15 @@ import colorama
 
 # โหลดชุดข้อมูลสำหรับการฝึก (Train) และการตรวจสอบความถูกต้อง (Validation)
 train_data = ImageFolder(
-    os.path.join(os.getcwd(), "./meter-1" , "train"),  # ระบุโฟลเดอร์ที่เก็บข้อมูลฝึก
+    os.path.join(os.getcwd(), "./Cats,-dogs-and-birds-3" , "train"),  # ระบุโฟลเดอร์ที่เก็บข้อมูลฝึก
     transform=Compose([
         Resize((288,288)),  # ปรับขนาดภาพเป็น 288x288 พิกเซล
-        ToTensor()
+        ToTensor()  # แปลงภาพเป็น Tensor เพื่อให้ใช้งานกับ PyTorch ได้
     ]),
 )
 
 valid_data = ImageFolder(
-    os.path.join(os.getcwd(), "./meter-1" , "valid"),  # ระบุโฟลเดอร์ที่เก็บข้อมูล validation
+    os.path.join(os.getcwd(), "./Cats,-dogs-and-birds-3" , "valid"),  # ระบุโฟลเดอร์ที่เก็บข้อมูล validation
     transform=Compose([
         Resize((288,288)),  # ปรับขนาดภาพให้เท่ากันกับข้อมูลฝึก
         ToTensor()
@@ -43,21 +43,21 @@ valid_loader = DataLoader(valid_data, batch_size=8, shuffle=True)
 class_names = train_data.classes
 print(class_names)
 
-# โหลดโมเดล EfficientNet-B2 และกำหนดจำนวนคลาส
-model_ft = torchvision.models.efficientnet_b2(pretrained=False, num_classes=len(class_names))
-print(model_ft)
-model_ft.requires_grad_(True)
-model_ft.classifier.requires_grad_(True)
-
-
-# model_ft = torchvision.models.efficientnet_b2(pretrained=True)
+# # โหลดโมเดล EfficientNet-B2 และกำหนดจำนวนคลาส
+# model_ft = torchvision.models.efficientnet_b2(pretrained=False, num_classes=len(class_names))
 # print(model_ft)
-# model_ft.classifier[1] = nn.Linear(in_features=1408, out_features=256, bias=True)
-# model_ft.classifier.append(nn.Dropout(0.3,inplace=True))
-# model_ft.classifier.append(nn.Linear(in_features=256, out_features=9, bias=True))
-# print(model_ft.classifier)
-# model_ft.requires_grad_(False)
+# model_ft.requires_grad_(True)
 # model_ft.classifier.requires_grad_(True)
+
+
+model_ft = torchvision.models.efficientnet_b2(pretrained=True)
+print(model_ft)
+model_ft.classifier[1] = nn.Linear(in_features=1408, out_features=256, bias=True)
+model_ft.classifier.append(nn.Dropout(0.3,inplace=True))
+model_ft.classifier.append(nn.Linear(in_features=256, out_features=9, bias=True))
+print(model_ft.classifier)
+model_ft.requires_grad_(False)
+model_ft.classifier.requires_grad_(True)
 
 
 # ฟังก์ชันคำนวณความแม่นยำของโมเดล
